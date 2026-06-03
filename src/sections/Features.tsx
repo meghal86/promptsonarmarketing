@@ -1,122 +1,70 @@
-import { useState } from 'react';
-import {
-  Shield,
-  GitBranch,
-  FileSearch,
-  Eye,
-  ChevronRight,
-  CheckCircle2,
-  Zap,
-} from 'lucide-react';
+import { GitBranch, Zap, Target, Wrench, BarChart2, Shield } from 'lucide-react';
 
-interface Feature {
-  name: string;
-  description: string;
-  icon: typeof Shield | typeof GitBranch | typeof FileSearch | typeof Eye | typeof Zap;
-}
-
-interface Layer {
-  id: string;
-  title: string;
-  subtitle: string;
-  icon: typeof Shield;
-  features: Feature[];
-  color: string;
-  borderColor: string;
-  bgColor: string;
-}
-
-const LAYERS: Layer[] = [
+const FEATURES = [
   {
-    id: 'core',
-    title: 'Execution Path',
-    subtitle: 'Trace & Analyze',
     icon: GitBranch,
-    color: 'text-foreground',
-    borderColor: 'border-foreground/10',
-    bgColor: 'bg-secondary',
-    features: [
-      { name: 'Execution Path', description: 'Shows where prompts can travel.', icon: GitBranch },
-      { name: 'Evidence', description: 'Shows exactly why the path exists.', icon: FileSearch },
-      { name: 'Confidence', description: 'Shows how certain the analysis is.', icon: Zap },
-      { name: 'Root Cause', description: 'Shows the finding creating the risk.', icon: Eye },
-      { name: 'Workflow Diff', description: 'Shows how remediation changes execution.', icon: Eye },
-    ],
+    title: 'Prompt Flow',
+    desc: 'Visual node chain showing exactly where your prompt travels — through tools, memory, and actions.',
+  },
+  {
+    icon: Zap,
+    title: 'Instant verdict',
+    desc: 'HIGH RISK or SAFE in under 5 seconds. No waiting. No API calls. Fully deterministic.',
+  },
+  {
+    icon: Target,
+    title: 'Root cause',
+    desc: 'Exactly which rule triggered, why, and the specific text that caused it — not just "something\'s wrong".',
+  },
+  {
+    icon: Wrench,
+    title: 'Before / After fix',
+    desc: 'Every finding comes with a concrete code fix showing the vulnerable version and the safe replacement.',
+  },
+  {
+    icon: BarChart2,
+    title: 'Model comparison',
+    desc: 'See how GPT-4o, Claude, Gemini, and Llama handle the same prompt — safety scores and behavior variance.',
+  },
+  {
+    icon: Shield,
+    title: 'Security policies',
+    desc: 'Define rules that automatically pass, warn, or block prompts before they go to production.',
   },
 ];
 
 export function Features() {
-  const [activeLayer] = useState(LAYERS[0].id);
-  const currentLayer = LAYERS.find((l) => l.id === activeLayer) || LAYERS[0];
-
   return (
     <section id="features" className="relative py-24 sm:py-32">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-foreground/[0.02] to-transparent pointer-events-none" />
-
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-border text-muted-foreground text-xs font-medium mb-4 shadow-sm">
             <Shield className="w-3.5 h-3.5" />
-            What PromptSonar Explains
+            Everything in a scan
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            What PromptSonar <span className="gradient-text">Explains</span>
+            Built for developers who ship{' '}
+            <span className="gradient-text">AI agents</span>
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            Execution visibility is the product. Security findings are an output.
+            Every scan gives you the full picture — not just a risk label.
           </p>
         </div>
 
-        {/* Features Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {currentLayer.features.map((feature, i) => (
+        <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-3 rounded-2xl overflow-hidden border border-border">
+          {FEATURES.map((feat) => (
             <div
-              key={feature.name}
-              className="group relative p-5 rounded-xl bg-white border border-border hover:border-foreground/10 transition-all duration-300 hover:shadow-md"
-              style={{ animationDelay: `${i * 50}ms` }}
+              key={feat.title}
+              className="bg-white p-6 hover:bg-secondary/30 transition-colors duration-200"
             >
-              <div className="flex items-start gap-4">
-                <div
-                  className={`w-10 h-10 rounded-lg ${currentLayer.bgColor} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}
-                >
-                  <feature.icon className={`w-5 h-5 ${currentLayer.color}`} />
-                </div>
-                <div>
-                  <h4 className="text-sm font-semibold text-foreground mb-1 group-hover:text-foreground/80 transition-colors">
-                    {feature.name}
-                  </h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    {feature.description}
-                  </p>
-                </div>
+              <div className="w-9 h-9 rounded-lg bg-secondary flex items-center justify-center mb-4">
+                <feat.icon className="w-4.5 h-4.5 text-foreground" />
               </div>
-
-              <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                <ChevronRight className="w-4 h-4 text-muted-foreground" />
-              </div>
+              <h3 className="text-sm font-semibold text-foreground mb-2">{feat.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{feat.desc}</p>
             </div>
           ))}
-        </div>
-
-        {/* Status Indicators */}
-        <div className="mt-10 flex flex-wrap justify-center gap-6 text-xs text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>Execution Path Tracing</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>Deterministic Evidence</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>Root Cause Analysis</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-            <span>Workflow Diff</span>
-          </div>
         </div>
       </div>
     </section>

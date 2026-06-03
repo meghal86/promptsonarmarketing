@@ -50,13 +50,13 @@ export function SocialProof() {
            <div className="text-center mb-12">
              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-border text-muted-foreground text-xs font-medium mb-4 shadow-sm">
                <Shield className="w-3.5 h-3.5" />
-               Built From Real AI Workflows
+               Built from real AI workflows
              </div>
              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
                Built From Real <span className="gradient-text">AI Workflows</span>
              </h2>
              <p className="text-muted-foreground max-w-xl mx-auto">
-               PromptSonar is grounded in analysis of production AI workflows. No exaggeration. Actual repository metrics.
+               Every security rule in PromptSonar is grounded in real production AI workflows — not theoretical patterns.
              </p>
            </div>
 

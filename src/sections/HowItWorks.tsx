@@ -1,13 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import {
-  MessageSquare,
-  Search,
-  Database,
-  Server,
-  Route,
-  Terminal,
-  Zap,
-} from 'lucide-react';
+import { MessageSquare, Search, Database, Server, Wrench, Terminal, Zap } from 'lucide-react';
 
 const STEPS = [
   {
@@ -43,18 +35,18 @@ const STEPS = [
     bg: 'bg-amber-50',
   },
   {
-    id: 'router',
-    icon: Route,
-    title: 'Tool Router',
+    id: 'tools',
+    icon: Wrench,
+    title: 'Tools',
     desc: 'Instructions gain access to actions.',
     color: 'text-cyan-600',
     bg: 'bg-cyan-50',
   },
   {
-    id: 'sink',
+    id: 'shell',
     icon: Terminal,
     title: 'Shell Execution',
-    desc: 'A privileged sink capable of changing systems.',
+    desc: 'Can run system commands and modify files.',
     color: 'text-red-600',
     bg: 'bg-red-50',
   },
@@ -62,112 +54,106 @@ const STEPS = [
 
 export function HowItWorks() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [visibleSteps, setVisibleSteps] = useState<Set<number>>(new Set());
+  const [activeStep, setActiveStep] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = parseInt(entry.target.getAttribute('data-step') || '0');
-            setVisibleSteps((prev) => new Set(prev).add(idx));
-          }
-        });
-      },
-      { threshold: 0.3, rootMargin: '-50px' }
+      ([entry]) => { if (entry.isIntersecting) setIsVisible(true); },
+      { threshold: 0.2 }
     );
-
-    const items = sectionRef.current?.querySelectorAll('[data-step]');
-    items?.forEach((item) => observer.observe(item));
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!isVisible) return;
+    const interval = setInterval(() => {
+      setActiveStep((s) => (s + 1) % STEPS.length);
+    }, 900);
+    return () => clearInterval(interval);
+  }, [isVisible]);
+
   return (
     <section id="how-it-works" ref={sectionRef} className="relative py-24 sm:py-32">
-      <div className="absolute inset-0 grid-pattern pointer-events-none opacity-50" />
-
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-border text-muted-foreground text-xs font-medium mb-4 shadow-sm">
-            <Search className="w-3.5 h-3.5" />
-            How It Works
+            <Zap className="w-3.5 h-3.5" />
+            How a prompt travels
           </div>
-           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-             How Execution Paths <span className="gradient-text">Form</span>
-           </h2>
-           <p className="text-muted-foreground max-w-xl mx-auto">
-             Most AI failures do not start at execution. They start when untrusted input reaches memory, tools, MCP servers, or privileged actions. PromptSonar makes those paths visible before deployment.
-           </p>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+            Every prompt takes a <span className="gradient-text">path</span>
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            PromptSonar traces the full journey — from user input to the final destination.
+            The last node is where the risk lives.
+          </p>
         </div>
 
-        {/* Pipeline */}
-        <div className="relative">
-          {/* Connecting line - desktop only */}
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-border via-foreground/10 to-border -translate-x-1/2" />
-
-          <div className="space-y-8 lg:space-y-12">
-            {STEPS.map((step, i) => {
-              const isLeft = i % 2 === 0;
-              const isVisible = visibleSteps.has(i);
-
-              return (
-                <div
-                  key={step.id}
-                  data-step={i}
-                  className={`relative flex flex-col lg:flex-row items-center gap-6 lg:gap-12 transition-all duration-700 ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
-                >
-                  <div
-                    className={`flex-1 ${isLeft ? 'lg:text-right' : 'lg:text-left'} ${
-                      isLeft ? 'lg:order-1' : 'lg:order-3'
-                    }`}
-                  >
-                    <div
-                      className={`inline-flex items-center gap-3 mb-3 ${
-                        isLeft ? 'lg:flex-row-reverse' : ''
-                      }`}
-                    >
-                      <div className={`w-10 h-10 rounded-xl ${step.bg} flex items-center justify-center`}>
-                        <step.icon className={`w-5 h-5 ${step.color}`} />
-                      </div>
-                      <h3 className="text-lg font-semibold text-foreground">{step.title}</h3>
-                    </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed max-w-sm mx-auto lg:mx-0">
-                      {step.desc}
-                    </p>
-                  </div>
-
-                  <div className="hidden lg:flex order-2 w-12 h-12 rounded-full bg-white border-2 border-foreground/10 items-center justify-center z-10 shadow-sm">
-                    <span className="text-xs font-bold text-foreground font-mono">{i + 1}</span>
-                  </div>
-
-                  <div className={`hidden lg:block flex-1 ${isLeft ? 'order-3' : 'order-1'}`} />
-                </div>
-              );
-            })}
-          </div>
+        {/* Animated node chain */}
+        <div className="flex flex-wrap items-center justify-center gap-1 mb-16">
+          {STEPS.map((step, i) => (
+            <div key={step.id} className="flex items-center gap-1">
+              <div className={[
+                'flex items-center gap-2 px-3 py-2 rounded-xl border transition-all duration-500',
+                i <= activeStep
+                  ? i === STEPS.length - 1 && activeStep === STEPS.length - 1
+                    ? 'border-red-300 bg-red-50 shadow-sm'
+                    : `border-border/60 ${step.bg}`
+                  : 'border-border/30 bg-secondary/30 opacity-40',
+              ].join(' ')}>
+                <step.icon className={`w-3.5 h-3.5 flex-shrink-0 ${i <= activeStep ? step.color : 'text-muted-foreground/30'}`} />
+                <span className={`text-xs font-semibold whitespace-nowrap ${i <= activeStep ? 'text-foreground' : 'text-muted-foreground/30'}`}>
+                  {step.title}
+                </span>
+                {i === STEPS.length - 1 && activeStep === STEPS.length - 1 && (
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse flex-shrink-0" />
+                )}
+              </div>
+              {i < STEPS.length - 1 && (
+                <span className={`text-xs font-bold transition-colors duration-300 ${i < activeStep ? 'text-foreground/40' : 'text-border'}`}>
+                  →
+                </span>
+              )}
+            </div>
+          ))}
         </div>
 
-         {/* Bottom CTA */}
-         <div className="mt-16 text-center">
-           <div className="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-white border border-border shadow-sm">
-             <div className="w-10 h-10 rounded-xl bg-secondary flex items-center justify-center">
-               <Zap className="w-5 h-5 text-foreground" />
-             </div>
-             <div className="text-left">
-               <div className="text-sm font-semibold text-foreground">PromptSonar identifies the exact point where trust breaks down.</div>
-               <div className="text-xs text-muted-foreground">
-                 Deterministic analysis. No LLM calls. Local first.
-               </div>
-             </div>
-           </div>
-           <div className="mt-4 text-xs text-muted-foreground">
-             PromptSonar identifies execution paths before they become incidents.
-           </div>
-         </div>
+        {/* Step cards */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              step: '1',
+              title: 'Paste your prompt',
+              desc: 'Drop in any system prompt, agent instruction, MCP config, or user query. Works on prompts of any size or format.',
+              chip: 'promptsonar.vercel.app',
+            },
+            {
+              step: '2',
+              title: 'The scanner maps the flow',
+              desc: 'PromptSonar traces every path — through tools, memory, MCP servers, and system commands. Deterministic. Same result every time.',
+              chip: '~47ms · no LLM calls',
+            },
+            {
+              step: '3',
+              title: 'Get your verdict + fix',
+              desc: 'SAFE or HIGH RISK — plus a Prompt Flow showing exactly where it goes, why it happened, and a Before/After fix.',
+              chip: 'verdict · flow · fix',
+            },
+          ].map((item) => (
+            <div key={item.step} className="p-6 rounded-xl bg-white border border-border hover:border-foreground/10 transition-all duration-300 hover:shadow-md">
+              <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center mb-4">
+                <span className="text-xs font-bold text-primary-foreground">{item.step}</span>
+              </div>
+              <h3 className="text-base font-semibold text-foreground mb-2">{item.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-3">{item.desc}</p>
+              <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-secondary border border-border text-xs font-mono text-muted-foreground">
+                {item.chip}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
