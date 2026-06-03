@@ -1,109 +1,97 @@
 import { useState, useEffect } from 'react';
-import { GitBranch, Menu, X, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { GitBranch, Menu, X } from 'lucide-react';
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 50);
+    const handler = () => setScrolled(window.scrollY > 80);
     window.addEventListener('scroll', handler);
     return () => window.removeEventListener('scroll', handler);
   }, []);
 
-  const navLinks = [
-    { label: 'How It Works', href: '#how-it-works' },
+  const links = [
+    { label: 'How it works', href: '#how-it-works' },
     { label: 'Features', href: '#features' },
-    { label: 'Report', href: '#execution-path-review' },
     { label: 'Integrations', href: '#integrations' },
-    { label: 'Try It', href: '#try' },
+    { label: 'GitHub', href: 'https://github.com/meghal86/promptsonarmarketing', external: true },
   ];
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/80 backdrop-blur-xl border-b border-border/50'
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-foreground flex items-center justify-center">
-              <GitBranch className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-base font-semibold tracking-tight text-foreground">
-              PromptSonar
-            </span>
-          </a>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-secondary"
-              >
-                {link.label}
-              </a>
-            ))}
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      scrolled
+        ? 'bg-background/90 backdrop-blur-xl border-b border-border/50'
+        : 'bg-transparent'
+    }`}>
+      <div className="max-w-6xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+        <a href="/" className="flex items-center gap-2.5">
+          <div className="w-7 h-7 rounded-md bg-foreground flex items-center justify-center">
+            <GitBranch className="w-3.5 h-3.5 text-background" />
           </div>
+          <span className={`text-[14px] font-medium tracking-tight transition-colors ${
+            scrolled ? 'text-foreground' : 'text-white'
+          }`}>
+            PromptSonar
+          </span>
+        </a>
 
-          {/* CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-muted-foreground hover:text-foreground"
+        <div className="hidden md:flex items-center gap-8">
+          {links.map(link => (
+            <a
+              key={link.href}
+              href={link.href}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener noreferrer' : undefined}
+              className={`text-[13px] font-normal transition-colors ${
+                scrolled
+                  ? 'text-muted-foreground hover:text-foreground'
+                  : 'text-white/65 hover:text-white'
+              }`}
             >
-              Docs
-            </Button>
-            <Button
-              size="sm"
-              className="bg-foreground text-primary-foreground hover:bg-foreground/90 gap-1.5"
-            >
-              Get Started
-              <ChevronRight className="w-4 h-4" />
-            </Button>
-          </div>
-
-          {/* Mobile toggle */}
-          <button
-            className="md:hidden p-2 text-muted-foreground hover:text-foreground"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+              {link.label}
+            </a>
+          ))}
         </div>
+
+        <a
+          href="https://promptsonar.vercel.app"
+          className={`hidden md:inline-flex items-center gap-1.5 text-[13px] font-medium px-4 py-2 rounded-lg transition-all ${
+            scrolled
+              ? 'bg-foreground text-background hover:bg-foreground/90'
+              : 'bg-white/95 text-foreground hover:bg-white'
+          }`}
+        >
+          Scan Prompt →
+        </a>
+
+        <button
+          className={`md:hidden ${scrolled ? 'text-foreground' : 'text-white'}`}
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label="Toggle menu"
+        >
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
       </div>
 
-      {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden bg-white/95 backdrop-blur-xl border-b border-border">
-          <div className="px-4 py-3 space-y-1">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="block px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-secondary rounded-lg transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
-            <div className="pt-2 flex gap-2">
-              <Button variant="outline" size="sm" className="flex-1">
-                Docs
-              </Button>
-              <Button size="sm" className="flex-1 bg-foreground text-primary-foreground">
-                Get Started
-              </Button>
-            </div>
-          </div>
+        <div className="md:hidden bg-background border-b border-border px-6 py-4 space-y-3">
+          {links.map(link => (
+            <a
+              key={link.href}
+              href={link.href}
+              className="block text-[14px] text-muted-foreground hover:text-foreground py-1.5"
+              onClick={() => setMobileOpen(false)}
+            >
+              {link.label}
+            </a>
+          ))}
+          <a
+            href="https://promptsonar.vercel.app"
+            className="block mt-2 text-center text-[14px] font-medium bg-foreground text-background py-2.5 rounded-lg"
+          >
+            Scan Prompt →
+          </a>
         </div>
       )}
     </nav>
