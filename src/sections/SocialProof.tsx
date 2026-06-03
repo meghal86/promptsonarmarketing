@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-  import { GitBranch, Search, FileSearch, CheckCircle2, Shield, Zap } from 'lucide-react';
+  import { GitBranch, FileSearch, CheckCircle2, Shield, Zap } from 'lucide-react';
 
 const METRICS = [
   {

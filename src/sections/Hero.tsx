@@ -13,7 +13,7 @@ export function Hero() {
     if (!ctx) return;
 
     let animationId: number;
-    let particles: Array<{
+    const particles: Array<{
       x: number;
       y: number;
       vx: number;
