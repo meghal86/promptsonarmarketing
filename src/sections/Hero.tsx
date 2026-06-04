@@ -80,7 +80,7 @@ function ScanWindow() {
   }, [phase, chars, activeNode, s]);
 
   return (
-    <div className="w-full max-w-sm rounded-2xl overflow-hidden"
+    <div className="w-full max-w-[400px] rounded-2xl overflow-hidden"
       style={{
         background: 'rgba(255,255,255,0.82)',
         backdropFilter: 'blur(20px)',
@@ -297,7 +297,7 @@ export function Hero() {
         className="absolute inset-0 pointer-events-none"
         style={{
           zIndex: 1,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.38) 45%, rgba(0,0,0,0.52) 70%, rgba(0,0,0,0.72) 100%)',
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.48) 0%, rgba(0,0,0,0.28) 45%, rgba(0,0,0,0.38) 70%, rgba(0,0,0,0.55) 100%)',
         }}
       />
       <div
@@ -325,118 +325,102 @@ export function Hero() {
               }}
             >
               <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: 'rgb(134,239,172)' }} />
-              Prompt security scanner · No account required
+              Prompt security scanner
             </div>
 
             <h1
-              className="font-bold tracking-tight mb-6 text-white"
+              className="font-bold tracking-tight mb-5 text-white"
               style={{
-                fontSize: 'clamp(38px, 5.5vw, 72px)',
-                lineHeight: 1.06,
-                letterSpacing: '-0.03em',
-                textShadow: '0 2px 20px rgba(0,0,0,0.3)',
+                fontSize: 'clamp(52px, 7.5vw, 88px)',
+                lineHeight: 1.0,
+                letterSpacing: '-0.04em',
+                textShadow: '0 2px 32px rgba(0,0,0,0.22)',
               }}
             >
               See where your<br />
               prompt{' '}
               <span
                 style={{
-                  background: 'linear-gradient(135deg, #fde68a 0%, #fbbf24 50%, #f59e0b 100%)',
+                  background: 'linear-gradient(135deg, #fde68a 0%, #fbbf24 55%, #f59e0b 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
                 }}
               >
-                goes
+                goes.
               </span>
-              <br />
-              before it causes damage
             </h1>
 
             <p
-              className="mb-10 leading-relaxed max-w-lg"
+              className="mb-10 leading-relaxed"
               style={{
                 fontSize: 'clamp(15px, 1.8vw, 18px)',
-                color: 'rgba(255,255,255,0.75)',
+                color: 'rgba(255,255,255,0.62)',
                 textShadow: '0 1px 8px rgba(0,0,0,0.3)',
+                maxWidth: '420px',
               }}
             >
-              Most AI failures start when untrusted input reaches tools, memory,
-              or shell commands. PromptSonar scans any prompt and shows exactly
-              what it can reach — in under 5 seconds.
+              Paste any prompt. See exactly what it can reach.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-10">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-0">
               <Button
                 size="lg"
-                className="gap-2 text-base px-7 h-12 font-semibold"
+                className="gap-2 text-[15px] px-8 h-12 font-semibold tracking-tight"
                 style={{
-                  background: 'rgba(255,255,255,0.95)',
+                  background: 'rgba(255,255,255,0.96)',
                   color: 'rgb(17,24,39)',
                   border: 'none',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.25)',
+                  boxShadow: '0 2px 12px rgba(0,0,0,0.18)',
+                  borderRadius: '10px',
                 }}
                 asChild
               >
                 <a href="https://promptsonar.vercel.app">
-                  Scan Prompt
-                  <ArrowRight className="w-4 h-4" />
+                  Scan Prompt <ArrowRight className="w-4 h-4" />
                 </a>
               </Button>
               <Button
                 variant="ghost"
                 size="lg"
-                className="text-base px-7 h-12 font-medium"
+                className="text-[14px] px-6 h-12 font-normal"
                 style={{
-                  background: 'rgba(255,255,255,0.1)',
+                  background: 'rgba(255,255,255,0.08)',
                   backdropFilter: 'blur(8px)',
                   WebkitBackdropFilter: 'blur(8px)',
-                  border: '1px solid rgba(255,255,255,0.25)',
-                  color: 'rgba(255,255,255,0.9)',
+                  border: '1px solid rgba(255,255,255,0.18)',
+                  color: 'rgba(255,255,255,0.75)',
+                  borderRadius: '10px',
                 }}
                 asChild
               >
-                <a href="#execution-path-review">See example report</a>
+                <a href="#execution-path-review">See example →</a>
               </Button>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {['No data stored', 'Zero LLM calls', 'Open source · MIT', 'Runs locally'].map((label) => (
-                <span
-                  key={label}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium"
-                  style={{
-                    background: 'rgba(255,255,255,0.1)',
-                    backdropFilter: 'blur(8px)',
-                    WebkitBackdropFilter: 'blur(8px)',
-                    border: '1px solid rgba(255,255,255,0.2)',
-                    color: 'rgba(255,255,255,0.75)',
-                  }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: 'rgb(134,239,172)' }} />
-                  {label}
-                </span>
-              ))}
             </div>
           </div>
 
-          <div className="flex justify-center lg:justify-end w-full lg:w-auto">
+          <div className="flex justify-center lg:justify-end w-full lg:w-auto lg:pl-8">
             <ScanWindow />
           </div>
         </div>
       </div>
 
       <div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         style={{ zIndex: 10 }}
       >
-        <span className="text-[10px] font-medium tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.4)' }}>
+        <div
+          className="w-[1px] h-10"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(255,255,255,0.5), transparent)',
+          }}
+        />
+        <span
+          className="text-[9px] font-medium tracking-[0.22em] uppercase"
+          style={{ color: 'rgba(255,255,255,0.28)' }}
+        >
           scroll
         </span>
-        <div
-          className="w-px h-8 animate-pulse"
-          style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.4), transparent)' }}
-        />
       </div>
 
       {/* Smooth transition from video to cream page */}

@@ -29,7 +29,7 @@ export function Navigation() {
           <div className="w-7 h-7 rounded-md bg-foreground flex items-center justify-center">
             <GitBranch className="w-3.5 h-3.5 text-background" />
           </div>
-          <span className={`text-[14px] font-medium tracking-tight transition-colors ${
+          <span className={`text-[14px] font-medium tracking-tight transition-colors duration-300 ${
             scrolled ? 'text-foreground' : 'text-white'
           }`}>
             PromptSonar
@@ -43,10 +43,10 @@ export function Navigation() {
               href={link.href}
               target={link.external ? '_blank' : undefined}
               rel={link.external ? 'noopener noreferrer' : undefined}
-              className={`text-[13px] font-normal transition-colors ${
+              className={`text-[13px] font-normal transition-colors duration-300 ${
                 scrolled
                   ? 'text-muted-foreground hover:text-foreground'
-                  : 'text-white/65 hover:text-white'
+                  : 'text-white/70 hover:text-white'
               }`}
             >
               {link.label}
@@ -54,16 +54,14 @@ export function Navigation() {
           ))}
         </div>
 
-        <a
-          href="https://promptsonar.vercel.app"
-          className={`hidden md:inline-flex items-center gap-1.5 text-[13px] font-medium px-4 py-2 rounded-lg transition-all ${
-            scrolled
-              ? 'bg-foreground text-background hover:bg-foreground/90'
-              : 'bg-white/95 text-foreground hover:bg-white'
-          }`}
-        >
-          Scan Prompt →
-        </a>
+        {scrolled && (
+          <a
+            href="https://promptsonar.vercel.app"
+            className="hidden md:inline-flex items-center gap-1.5 text-[13px] font-medium px-4 py-2 rounded-lg transition-all bg-foreground text-background hover:bg-foreground/90"
+          >
+            Scan Prompt →
+          </a>
+        )}
 
         <button
           className={`md:hidden ${scrolled ? 'text-foreground' : 'text-white'}`}
