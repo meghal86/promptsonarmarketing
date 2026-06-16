@@ -15,6 +15,7 @@ export function Navigation() {
     { label: 'How it works', href: '#how-it-works' },
     { label: 'Features', href: '#features' },
     { label: 'Integrations', href: '#integrations' },
+    { label: 'Docs', href: '/docs' },
     { label: 'GitHub', href: 'https://github.com/meghal86/promptsonarmarketing', external: true },
   ];
 

@@ -5,7 +5,9 @@ import { inspectAttr } from 'kimi-plugin-inspect-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './',
+  // Absolute base so hashed asset URLs resolve correctly on nested
+  // client-side routes (e.g. /docs/installation) after a hard refresh.
+  base: '/',
   plugins: [inspectAttr(), react()],
   server: {
     port: 3000,

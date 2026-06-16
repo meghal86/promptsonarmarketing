@@ -14,7 +14,7 @@ export function Footer() {
           {[
             { label: 'App', href: 'https://promptsonar.vercel.app' },
             { label: 'GitHub', href: 'https://github.com/meghal86/promptsonarmarketing' },
-            { label: 'Docs', href: '#' },
+            { label: 'Docs', href: '/docs' },
           ].map(link => (
             <a
               key={link.label}
