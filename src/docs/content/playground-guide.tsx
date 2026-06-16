@@ -1,4 +1,4 @@
-import { H2, P, Lead, UL, LI, A, Todo } from '../components/prose';
+import { H2, P, Lead, UL, LI, A } from '../components/prose';
 import { Admonition } from '../components/Admonition';
 
 export function PlaygroundGuide() {
@@ -33,26 +33,26 @@ export function PlaygroundGuide() {
           <strong>Input</strong> — paste a prompt, agent config, or MCP snippet.
         </LI>
         <LI>
-          <strong>Execution path</strong> — a node chain showing where the input
-          travels and where risk is introduced.
+          <strong>Execution path</strong> — a visual representation of how
+          instructions travel and where risk is introduced.
         </LI>
         <LI>
-          <strong>Findings</strong> — the verdict, root cause, and suggested fix.
+          <strong>Findings</strong> — the overall verdict, supporting evidence,
+          triggered rules, and recommended fixes.
         </LI>
       </UL>
-      <Todo>Add an annotated screenshot of the Playground layout.</Todo>
 
       <H2>Walkthrough</H2>
       <P>
         Paste a prompt into the input panel and run the analysis. The execution
-        path animates each node, highlighting the step that introduces risk. The
-        findings panel then resolves to a verdict with the triggering rule.
+        path helps explain how instructions flow through the system, while the
+        findings panel highlights the triggered rules, evidence, and recommended
+        fixes.
       </P>
-      <Todo>Add a step-by-step walkthrough with screenshots.</Todo>
 
       <Admonition type="info" title="Same engine, two surfaces">
-        The Playground and the CLI share the same deterministic detection
-        engine, so a prompt produces the same verdict in either place.
+        The Playground and CLI use the same deterministic detection engine,
+        ensuring consistent findings across both experiences.
       </Admonition>
 
       <H2>Next steps</H2>

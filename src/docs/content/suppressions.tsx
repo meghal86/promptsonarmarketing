@@ -1,5 +1,4 @@
-import { H2, P, Lead, UL, LI, A, Todo } from '../components/prose';
-import { CodeBlock } from '../components/CodeBlock';
+import { H2, P, Lead, UL, LI, A } from '../components/prose';
 import { Admonition } from '../components/Admonition';
 
 export function Suppressions() {
@@ -15,7 +14,8 @@ export function Suppressions() {
       <UL>
         <LI>A finding is a confirmed false positive.</LI>
         <LI>
-          A risk is accepted and tracked elsewhere (with a reason and an owner).
+          A risk has been accepted and documented elsewhere (with a reason and
+          an owner).
         </LI>
         <LI>
           You are adopting PromptSonar on an existing repo and want to gate only
@@ -31,27 +31,25 @@ export function Suppressions() {
       <H2>The suppressions file</H2>
       <P>
         Suppressions live in a checked-in file so they are auditable and review
-        as part of a pull request. Each entry should identify the finding and
-        explain the rationale.
+        as part of a pull request. The exact file shape should be documented in
+        your repository alongside the policy that governs who can add or modify
+        suppressions.
       </P>
-      <CodeBlock
-        language="yaml"
-        title="promptsonar.suppress.yml"
-        code={`# TODO: confirm the suppression file name and schema
-suppressions:
-  - rule: shell-execution-reachable
-    path: src/agents/legacy.ts
-    reason: "Sandboxed runner; risk accepted — see TICKET-123"
-    expires: 2026-12-31`}
-      />
-      <Todo>Confirm the exact suppression file name, location, and fields.</Todo>
+      <P>
+        Keep the metadata concise and reviewable: identify the finding, explain
+        why it is safe to ignore, and make sure the decision is easy for the
+        next reviewer to understand.
+      </P>
 
       <H2>Suppress a single finding</H2>
       <P>
         Scope a suppression as narrowly as possible — to a specific rule and
         path — so it never hides an unrelated, genuine issue.
       </P>
-      <Todo>Add an example of an inline / single-finding suppression.</Todo>
+      <P>
+        Prefer the smallest possible scope. A narrow suppression is easier to
+        audit, easier to revoke, and less likely to mask a real regression.
+      </P>
 
       <H2>Suppress a rule</H2>
       <P>
@@ -59,13 +57,11 @@ suppressions:
         globally. Prefer per-finding suppression where you can, since a global
         disable removes the rule everywhere.
       </P>
-      <CodeBlock
-        language="yaml"
-        title="disable a rule"
-        code={`# TODO: confirm rule-level disable syntax
-rules:
-  some-rule-id: off`}
-      />
+      <P>
+        Use this only when the rule is structurally irrelevant to your codebase.
+        If the rule might apply later, keep the suppression narrow and revisit it
+        as the code changes.
+      </P>
 
       <Admonition type="tip" title="Expire your suppressions">
         Where supported, set an expiry so accepted risks resurface for review

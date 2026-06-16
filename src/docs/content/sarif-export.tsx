@@ -1,4 +1,4 @@
-import { H2, P, Lead, UL, LI, A, Code, Todo } from '../components/prose';
+import { H2, P, Lead, UL, LI, A, Code } from '../components/prose';
 import { CodeBlock } from '../components/CodeBlock';
 import { Admonition } from '../components/Admonition';
 
@@ -13,9 +13,9 @@ export function SarifExport() {
 
       <H2>What is SARIF?</H2>
       <P>
-        SARIF is an OASIS standard JSON format for static-analysis results. It is
-        what GitHub code scanning consumes, so exporting SARIF lets PromptSonar
-        findings show up as inline annotations on pull requests and in the
+        SARIF is an OASIS standard JSON format for static-analysis results.
+        GitHub code scanning consumes SARIF natively, allowing PromptSonar
+        findings to appear directly in pull requests and the repository's
         Security tab.
       </P>
 
@@ -24,13 +24,11 @@ export function SarifExport() {
       <CodeBlock
         language="bash"
         title="export sarif"
-        code={`# TODO: confirm the SARIF export flags
-promptsonar scan . --format sarif --output results.sarif`}
+        code={`promptsonar scan . --format sarif --output results.sarif`}
       />
-      <Todo>Confirm the exact format/output flags.</Todo>
 
       <H2>What is in the report</H2>
-      <P>Each finding maps to a SARIF result, carrying:</P>
+      <P>Each PromptSonar finding becomes a SARIF result containing:</P>
       <UL>
         <LI>The rule id and a description of what it detects.</LI>
         <LI>
@@ -42,7 +40,52 @@ promptsonar scan . --format sarif --output results.sarif`}
           <A href="/docs/owasp-llm-mapping">OWASP LLM Mapping</A>.
         </LI>
       </UL>
-      <Todo>Insert a real SARIF sample showing a PromptSonar result object.</Todo>
+      <P>
+        This representative example shows the standard SARIF fields PromptSonar
+        exports for a single finding.
+      </P>
+      <CodeBlock
+        language="json"
+        title="results.sarif"
+        code={`{
+  "$schema": "https://json.schemastore.org/sarif-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "PromptSonar"
+        }
+      },
+      "results": [
+        {
+          "ruleId": "prompt-injection",
+          "level": "error",
+          "message": {
+            "text": "HIGH RISK — untrusted input can reach a dangerous sink"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "prompt.txt"
+                },
+                "region": {
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "properties": {
+            "confidence": "Confirmed",
+            "owaspCategory": "LLM01 - Prompt Injection"
+          }
+        }
+      ]
+    }
+  ]
+}`}
+      />
 
       <H2>Upload to GitHub code scanning</H2>
       <P>

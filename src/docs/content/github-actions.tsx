@@ -1,4 +1,4 @@
-import { H2, P, Lead, UL, LI, A, Code, Todo } from '../components/prose';
+import { H2, P, Lead, UL, LI, A, Code } from '../components/prose';
 import { CodeBlock } from '../components/CodeBlock';
 import { Admonition } from '../components/Admonition';
 
@@ -13,8 +13,11 @@ export function GithubActions() {
 
       <H2>What this gives you</H2>
       <UL>
-        <LI>Every pull request is scanned automatically.</LI>
-        <LI>Findings appear as checks and, optionally, as SARIF annotations.</LI>
+        <LI>Every pull request is scanned before merge.</LI>
+        <LI>
+          Findings appear within pull request workflows through checks and
+          optional SARIF annotations.
+        </LI>
         <LI>Builds can fail on new high-risk findings to block regressions.</LI>
       </UL>
 
@@ -39,14 +42,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # TODO: replace with the published install/run steps
       - name: Install PromptSonar
         run: npm install -g promptsonar
 
       - name: Scan repository
         run: promptsonar scan . --format sarif --output results.sarif`}
       />
-      <Todo>Confirm the install command and scan flags for CI.</Todo>
 
       <H2>Surface findings in code scanning</H2>
       <P>
@@ -84,7 +85,6 @@ jobs:
         code={`      - name: Scan and gate
         run: promptsonar scan . --fail-on high`}
       />
-      <Todo>Confirm the exact gating flag and exit-code behavior.</Todo>
 
       <Admonition type="tip" title="Reduce noise on existing repos">
         Adopting on an existing codebase? Start by gating only on{' '}

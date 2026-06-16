@@ -138,7 +138,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'Wire PromptSonar into any pipeline.',
         description:
           'Patterns for running PromptSonar in GitLab CI, CircleCI, Jenkins, and other pipelines using the CLI and exit codes.',
-        status: 'draft',
+        status: 'ready',
       },
     ],
   },
@@ -159,7 +159,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'Detections for Model Context Protocol configurations.',
         description:
           'Rules that inspect MCP server configurations for wildcard permissions, auto-execution, and tool-hijacking risks.',
-        status: 'draft',
+        status: 'ready',
       },
       {
         slug: 'confidence-scoring',
@@ -167,7 +167,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'How PromptSonar rates the certainty of a finding.',
         description:
           'Confidence scoring expresses how certain a deterministic rule is about a finding, helping you triage and tune.',
-        status: 'draft',
+        status: 'ready',
       },
       {
         slug: 'suppressions',
@@ -183,7 +183,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'Triage, report, and tune away false positives.',
         description:
           'A workflow for confirming false positives, suppressing them safely, and improving rules over time.',
-        status: 'draft',
+        status: 'ready',
       },
     ],
   },
@@ -196,7 +196,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'The machine-readable findings format.',
         description:
           'The JSON report is the canonical, machine-readable output that every other format is derived from.',
-        status: 'draft',
+        status: 'ready',
       },
       {
         slug: 'sarif-export',
@@ -212,7 +212,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'A shareable, human-readable report.',
         description:
           'Generate a self-contained HTML report to share findings with teammates who do not use the CLI.',
-        status: 'draft',
+        status: 'ready',
       },
       {
         slug: 'prompt-sbom',
@@ -220,7 +220,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'An inventory of every prompt and tool in your project.',
         description:
           'The Prompt SBOM is a software-bill-of-materials-style inventory of the prompts, tools, and MCP servers PromptSonar discovered.',
-        status: 'draft',
+        status: 'ready',
       },
     ],
   },
@@ -233,7 +233,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'The analysis pipeline, end to end.',
         description:
           'A tour of how PromptSonar parses inputs, builds an execution path, applies deterministic rules, and produces a verdict.',
-        status: 'draft',
+        status: 'ready',
       },
       {
         slug: 'static-analysis-philosophy',
@@ -241,7 +241,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'Why PromptSonar analyzes statically and locally.',
         description:
           'The design principles behind a static, local-first approach to AI security analysis.',
-        status: 'draft',
+        status: 'ready',
       },
       {
         slug: 'deterministic-detection',
@@ -249,7 +249,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'Why the same input always yields the same verdict.',
         description:
           'Deterministic detection means no model calls in the hot path: the same input always produces the same, explainable result.',
-        status: 'draft',
+        status: 'ready',
       },
       {
         slug: 'benchmarking-strategy',
@@ -257,7 +257,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'How detection quality is measured.',
         description:
           'How PromptSonar measures precision and recall against a labeled corpus to keep detections honest.',
-        status: 'draft',
+        status: 'ready',
       },
     ],
   },
@@ -270,7 +270,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'A plain-language primer on prompt injection.',
         description:
           'Understand prompt injection: how untrusted input hijacks an LLM, why it matters, and how PromptSonar detects it.',
-        status: 'draft',
+        status: 'ready',
       },
       {
         slug: 'what-is-mcp-security',
@@ -278,7 +278,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'Security risks introduced by the Model Context Protocol.',
         description:
           'An introduction to the Model Context Protocol and the security considerations of giving agents tools.',
-        status: 'draft',
+        status: 'ready',
       },
       {
         slug: 'agent-security-fundamentals',
@@ -286,7 +286,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'Core concepts for securing autonomous agents.',
         description:
           'The fundamentals of agent security: trust boundaries, tool permissions, approval steps, and sinks.',
-        status: 'draft',
+        status: 'ready',
       },
       {
         slug: 'ai-workflow-security-best-practices',
@@ -294,7 +294,7 @@ export const DOCS: DocGroup[] = [
         purpose: 'Practical guardrails for production AI workflows.',
         description:
           'A checklist of best practices for shipping AI workflows that resist injection and tool abuse.',
-        status: 'draft',
+        status: 'ready',
       },
     ],
   },

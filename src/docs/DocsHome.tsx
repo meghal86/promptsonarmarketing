@@ -84,12 +84,10 @@ export function DocsHome() {
           PromptSonar Documentation
         </p>
         <h1 className="max-w-2xl text-balance text-[40px] font-semibold leading-[1.1] tracking-tight text-foreground lg:text-[48px]">
-          Ship AI agents with <em className="font-playfair italic">confidence</em>.
+          Understand how your AI agents execute.
         </h1>
         <p className="mt-5 max-w-xl text-[16px] leading-7 text-muted-foreground">
-          PromptSonar is a deterministic, local-first execution-path analyzer
-          that surfaces security risks in prompts, agent workflows,
-          repositories, and MCP configurations — before they reach production.
+          PromptSonar deterministically analyzes prompts, repositories, skills, and MCP configurations to reveal execution paths, security risks, and explainable verdicts before production.
         </p>
 
         <div className="mt-7 flex flex-wrap items-center gap-3">

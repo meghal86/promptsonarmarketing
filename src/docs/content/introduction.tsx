@@ -1,4 +1,4 @@
-import { H2, P, Lead, UL, OL, LI, A, Code, Todo } from '../components/prose';
+import { H2, P, Lead, UL, OL, LI, A, Todo } from '../components/prose';
 import { Admonition } from '../components/Admonition';
 
 export function Introduction() {
@@ -6,9 +6,9 @@ export function Introduction() {
     <>
       <Lead>
         PromptSonar is a deterministic, local-first AI Execution Path Analysis
-        platform. It helps developers find security risks in prompts, agent
-        workflows, repositories, skills, and MCP configurations — before they
-        reach production.
+        platform. It helps developers identify security risks in prompts, agent
+        workflows, repositories, skills, and MCP configurations before they reach
+        production.
       </Lead>
 
       <H2>What problem it solves</H2>
@@ -20,28 +20,28 @@ export function Introduction() {
         and into a dangerous sink.
       </P>
       <P>
-        PromptSonar analyzes that path statically and deterministically, then
-        gives you a clear verdict — <Code>HIGH RISK</Code> or <Code>SAFE</Code>{' '}
-        — with the exact rule, the root cause, and a suggested fix.
+        PromptSonar analyzes those execution paths statically and deterministically,
+        then reports findings with the exact rule, root cause, supporting evidence,
+        and a recommended fix.
       </P>
 
       <H2>Core principles</H2>
       <UL>
         <LI>
-          <strong>Deterministic.</strong> The same input always yields the same
-          verdict. No model calls in the hot path, nothing to flake.
+          <strong>Deterministic.</strong> The same input always produces the same
+          result. No model calls in the hot path and no non-deterministic behavior.
         </LI>
         <LI>
-          <strong>Local-first.</strong> Analysis runs on your machine. Your
-          prompts and code do not leave your environment.
+          <strong>Local-first.</strong> Analysis runs entirely on your machine.
+          Your prompts and code stay within your environment.
         </LI>
         <LI>
-          <strong>Explainable.</strong> Every finding names the rule that fired,
-          the text that triggered it, and where it maps in the OWASP LLM Top 10.
+          <strong>Explainable.</strong> Every finding identifies the rule that
+          fired, the evidence that triggered it, and its OWASP LLM mapping.
         </LI>
         <LI>
-          <strong>Repository-first.</strong> Scan a single prompt or an entire
-          codebase with the same engine.
+          <strong>Repository-first.</strong> Use the same engine to analyze a
+          single prompt or an entire repository.
         </LI>
       </UL>
 
@@ -60,19 +60,22 @@ export function Introduction() {
 
       <H2>How a scan works</H2>
       <OL>
-        <LI>PromptSonar parses your input into an execution path.</LI>
-        <LI>Deterministic rules evaluate each node and edge of that path.</LI>
+        <LI>PromptSonar parses prompts, repositories, and configurations into execution paths.</LI>
+        <LI>Deterministic rules analyze each path for risky patterns and unsafe behavior.</LI>
         <LI>
-          Findings are scored, mapped to OWASP LLM categories, and rendered as a
-          verdict with a root cause.
+          Findings are mapped to OWASP LLM guidance and enriched with evidence,
+          severity, and recommended fixes.
         </LI>
         <LI>
-          You export the result as JSON, SARIF, or HTML — or gate a pull request
-          on it.
+          Export reports as JSON, SARIF, or HTML — or integrate PromptSonar into
+          pull request workflows.
         </LI>
       </OL>
 
-      <Todo>Add an architecture diagram of the analysis pipeline.</Todo>
+      <Todo>
+        [Architecture diagram coming soon: Prompt → Execution Path → Rule Engine →
+        Findings → Reports]
+      </Todo>
 
       <H2>Next steps</H2>
       <P>

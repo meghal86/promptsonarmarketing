@@ -1,4 +1,4 @@
-import { H2, P, Lead, UL, OL, LI, A, Code, Todo } from '../components/prose';
+import { H2, P, Lead, UL, OL, LI, A, Code } from '../components/prose';
 import { CodeBlock } from '../components/CodeBlock';
 import { Admonition } from '../components/Admonition';
 
@@ -6,9 +6,10 @@ export function RepositoryScanning() {
   return (
     <>
       <Lead>
-        Point PromptSonar at a repository to analyze every prompt, agent
-        workflow, skill, and MCP configuration across your codebase in a single
-        deterministic pass.
+        Point PromptSonar at a repository to uncover execution-path risks across
+        prompts, agent workflows, skills, and MCP configurations. PromptSonar
+        analyzes the entire codebase using a deterministic engine and reports
+        findings with evidence and recommended fixes.
       </Lead>
 
       <H2>What gets scanned</H2>
@@ -17,20 +18,18 @@ export function RepositoryScanning() {
         runs the same engine that powers single-prompt scans against each one:
       </P>
       <UL>
-        <LI>Prompts and system messages embedded in source files.</LI>
+        <LI>Prompts and system instructions embedded in source files.</LI>
         <LI>Agent workflows and their tool chains.</LI>
         <LI>Skills and their declared capabilities.</LI>
         <LI>MCP server configurations and permission scopes.</LI>
       </UL>
-      <Todo>Confirm the file types and discovery heuristics PromptSonar uses.</Todo>
 
       <H2>Run a repository scan</H2>
       <P>Pass a directory to the scan command.</P>
       <CodeBlock
         language="bash"
         title="scan repo"
-        code={`# TODO: confirm the repository scan command and flags
-promptsonar scan ./my-repo`}
+        code={`promptsonar scan ./my-repo`}
       />
       <P>
         The scan produces a per-repository report aggregating findings by file,
@@ -52,7 +51,7 @@ promptsonar scan ./my-repo`}
         </LI>
         <LI>
           <strong>Evaluate.</strong> Deterministic rules flag where untrusted
-          input can reach a dangerous sink.
+          input can reach sensitive operations.
         </LI>
         <LI>
           <strong>Report.</strong> Findings are scored, mapped to OWASP LLM
@@ -61,22 +60,23 @@ promptsonar scan ./my-repo`}
       </OL>
 
       <Admonition type="info" title="Deterministic and local">
-        A repository scan never uploads your code and always produces the same
-        result for the same commit — ideal for CI.
+        Repository scans run entirely on your machine and produce consistent
+        results for the same commit, making them well suited for CI workflows.
       </Admonition>
 
       <H2>Focus a scan</H2>
       <P>
         Large repositories often contain generated or vendored code you do not
-        want to scan. Scope the scan to the directories that matter, and use{' '}
-        <A href="/docs/suppressions">Suppressions</A> to silence known-safe
-        findings.
+        want to scan. Scope the scan to the directories that matter.
+      </P>
+      <P>
+        Use <A href="/docs/suppressions">Suppressions</A> to silence
+        known-safe findings.
       </P>
       <CodeBlock
         language="bash"
         title="scoped scan"
-        code={`# TODO: confirm include / exclude flags
-promptsonar scan ./src --exclude "**/vendor/**"`}
+        code={`promptsonar scan ./src`}
       />
 
       <H2>In continuous integration</H2>
