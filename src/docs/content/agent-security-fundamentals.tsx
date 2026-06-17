@@ -1,4 +1,4 @@
-import { H2, P, Lead, UL, LI, A } from '../components/prose';
+import { H2, P, Lead, A } from '../components/prose';
 import { Admonition } from '../components/Admonition';
 
 export function AgentSecurityFundamentals() {

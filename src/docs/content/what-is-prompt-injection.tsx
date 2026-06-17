@@ -1,4 +1,4 @@
-import { H2, P, Lead, UL, LI, A } from '../components/prose';
+import { H2, P, Lead, A } from '../components/prose';
 import { CodeBlock } from '../components/CodeBlock';
 import { Admonition } from '../components/Admonition';
 
